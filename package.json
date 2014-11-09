@@ -14,5 +14,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dmytroyarmak/travelling-salesman-problem/issues"
+  },
+  "dependencies": {
+    "algorithmbox": "~1.0.1",
+    "simple-cls": "0.0.8"
   }
 }
