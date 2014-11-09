@@ -1,0 +1,18 @@
+{
+  "name": "travelling-salesman-problem",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dmytroyarmak/travelling-salesman-problem.git"
+  },
+  "author": "Dmytro Yarmak <mytroyarmak@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmytroyarmak/travelling-salesman-problem/issues"
+  }
+}
