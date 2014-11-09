@@ -16,8 +16,7 @@
     "url": "https://github.com/dmytroyarmak/travelling-salesman-problem/issues"
   },
   "dependencies": {
-    "algorithmbox": "~1.0.1",
-    "simple-cls": "0.0.8",
-    "sylvester": "0.0.21"
+    "xml2js": "~0.4.4",
+    "q": "~1.0.1"
   }
 }
