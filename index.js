@@ -6,6 +6,7 @@ var loadSample = require('./lib/tsplib').loadSample;
 var TSPSolution = require('./lib/TSPSolution');
 var hillClimbingSolver = require('./lib/hillClimbingSolver');
 var tabuSolver = require('./lib/tabuSolver');
+var simulatedAnnealingSolver = require('./lib/simulatedAnnealingSolver');
 
 var SAMPLES = [
   'br17',
@@ -47,26 +48,24 @@ function solveForEachInitialState (solver, sampleData) {
   });
 }
 
+function solveAndPrint (label, solver, sampleData) {
+    var startTime = microtime.nowDouble();
+    var allSolutions = solveForEachInitialState(solver, sampleData);
+    var bestSolution = getBestSolution(allSolutions);
+    var endTime = microtime.nowDouble();
+    var diffTime = (endTime - startTime)/10;
+
+    console.log(label, bestSolution.toString(), diffTime.toFixed(3));
+}
+
 function loadAndSolveSample (sampleName) {
   return loadSample(sampleName).then(function (sampleData) {
     var bestInitialSolution = getBestInitialSolution(sampleData);
-
-    var startHCTime = microtime.nowDouble();
-    var allHCSolutions = solveForEachInitialState(hillClimbingSolver, sampleData);
-    var bestHCSolution = getBestSolution(allHCSolutions);
-    var endHCTime = microtime.nowDouble();
-    var diffHCTime = (endHCTime - startHCTime)/10;
-
-    var startTabuTime = microtime.nowDouble();
-    var allTabuSolutions = solveForEachInitialState(tabuSolver, sampleData);
-    var bestTabuSolution = getBestSolution(allTabuSolutions);
-    var endTabuTime = microtime.nowDouble();
-    var diffTabuTime = (endTabuTime - startTabuTime)/10;
-
     console.log('Sample:', sampleName);
     console.log('Best initial solution:', bestInitialSolution.toString());
-    console.log('Best Hill-Climbing solution:', bestHCSolution.toString(), diffHCTime.toFixed(3));
-    console.log('Best Tabu solution:', bestTabuSolution.toString(), diffTabuTime.toFixed(3));
+    solveAndPrint('Best Hill-Climbing solution:', hillClimbingSolver, sampleData);
+    solveAndPrint('Best Tabu solution:', tabuSolver, sampleData);
+    solveAndPrint('Best Simulated Annealing solution:', simulatedAnnealingSolver, sampleData);
     console.log();
   });
 }
