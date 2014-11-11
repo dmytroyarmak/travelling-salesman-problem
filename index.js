@@ -1,10 +1,11 @@
 var _ = require('underscore');
 var async = require('async');
+var microtime = require('microtime');
+
 var loadSample = require('./lib/tsplib').loadSample;
+var TSPSolution = require('./lib/TSPSolution');
 var hillClimbingSolver = require('./lib/hillClimbingSolver');
 var tabuSolver = require('./lib/tabuSolver');
-var TSPSolution = require('./lib/TSPSolution');
-var microtime = require('microtime');
 
 var SAMPLES = [
   'br17',
@@ -62,7 +63,11 @@ function loadAndSolveSample (sampleName) {
     var endTabuTime = microtime.nowDouble();
     var diffTabuTime = (endTabuTime - startTabuTime)/10;
 
-    console.log(sampleName, bestInitialSolution.getLength(), bestHCSolution.getLength(), diffHCTime.toFixed(3), bestTabuSolution.getLength(), diffTabuTime.toFixed(3));
+    console.log('Sample:', sampleName);
+    console.log('Best initial solution:', bestInitialSolution.toString());
+    console.log('Best Hill-Climbing solution:', bestHCSolution.toString(), diffHCTime.toFixed(3));
+    console.log('Best Tabu solution:', bestTabuSolution.toString(), diffTabuTime.toFixed(3));
+    console.log();
   });
 }
 
