@@ -17,7 +17,6 @@ var SAMPLES = [
   'p43',
   'ftv44',
   'ftv47',
-  'att48',
   'ry48p',
   'eil51',
   'berlin52',
