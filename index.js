@@ -7,6 +7,7 @@ var TSPSolution = require('./lib/TSPSolution');
 var hillClimbingSolver = require('./lib/hillClimbingSolver');
 var tabuSolver = require('./lib/tabuSolver');
 var simulatedAnnealingSolver = require('./lib/simulatedAnnealingSolver');
+var geneticAlgorithmSolver = require('./lib/geneticAlgorithmSolver');
 
 var SAMPLES = [
   'br17',
@@ -47,10 +48,22 @@ function solveForEachInitialState (solver, sampleData) {
   });
 }
 
+function solveForEachInitialStateAndGetBestSolution (solver, sampleData) {
+  var allSolutions = solveForEachInitialState(solver, sampleData);
+  return getBestSolution(allSolutions);
+}
+
+function solve (solver, sampleData) {
+    if (solver === geneticAlgorithmSolver) {
+      return solver.solve(sampleData.data, sampleData.initialSolutions);
+    } else {
+      return solveForEachInitialStateAndGetBestSolution(solver, sampleData);
+    }
+}
+
 function solveAndPrint (label, solver, sampleData) {
     var startTime = microtime.nowDouble();
-    var allSolutions = solveForEachInitialState(solver, sampleData);
-    var bestSolution = getBestSolution(allSolutions);
+    var bestSolution = solve(solver, sampleData);
     var endTime = microtime.nowDouble();
     var diffTime = (endTime - startTime)/10;
 
@@ -65,6 +78,7 @@ function loadAndSolveSample (sampleName) {
     solveAndPrint('Best Hill-Climbing solution:', hillClimbingSolver, sampleData);
     solveAndPrint('Best Tabu solution:', tabuSolver, sampleData);
     solveAndPrint('Best Simulated Annealing solution:', simulatedAnnealingSolver, sampleData);
+    solveAndPrint('Best Genetic Algorithm solution:', geneticAlgorithmSolver, sampleData);
     console.log();
   });
 }
