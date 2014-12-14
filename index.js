@@ -65,7 +65,7 @@ function solveAndPrint (label, solver, sampleData) {
     var startTime = microtime.nowDouble();
     var bestSolution = solve(solver, sampleData);
     var endTime = microtime.nowDouble();
-    var diffTime = (endTime - startTime)/10;
+    var diffTime = (endTime - startTime)/(solver === geneticAlgorithmSolver ? 1 : 10);
 
     console.log(label, bestSolution.toString(), diffTime.toFixed(3));
 }
